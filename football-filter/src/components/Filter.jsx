@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 function Filter({ clubName, onChangeName, onReset, cities, city, onChangeCity }) {
     console.log("Filter render");
     return (
@@ -26,4 +24,4 @@ function Filter({ clubName, onChangeName, onReset, cities, city, onChangeCity })
     );
 }
 
-export default memo(Filter);
+export default Filter;
