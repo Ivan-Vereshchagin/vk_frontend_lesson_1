@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo} from 'react'
 import { clubs } from './data/clubs'
 import List from './components/List'
 import Filter from './components/Filter'
@@ -8,10 +8,14 @@ function App() {
 	console.log("App render");
 	const [clubName, setClubName] = useState("");
 	const [city, setCity] = useState("");
+	const [count, setCount] = useState(0);
 
-	const filteredClubs = clubs.filter((club) =>
-		club.name.toLowerCase().includes(clubName.toLowerCase()) &&
-		(city === "" || city === club.city)
+	const filteredClubs = useMemo(() => 
+		clubs.filter((club) =>
+			club.name.toLowerCase().includes(clubName.toLowerCase()) &&
+			(city === "" || city === club.city)
+		),
+		[clubName, city]
 	);
 
 	const cities = [...new Set(clubs.map((club) => club.city))];
@@ -31,7 +35,11 @@ function App() {
 				onChangeCity={setCity}
 			/>
 			<List clubs={filteredClubs} />
+			<button onClick={() => setCount(count + 1)}>
+				Нажатий: {count}
+			</button>
 		</>
+		
 	);
 }
 
