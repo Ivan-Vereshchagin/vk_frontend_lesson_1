@@ -1,4 +1,4 @@
-import { useState, useMemo} from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { clubs } from './data/clubs'
 import List from './components/List'
 import Filter from './components/Filter'
@@ -18,7 +18,15 @@ function App() {
 		[clubName, city]
 	);
 
-	const cities = [...new Set(clubs.map((club) => club.city))];
+	const cities = useMemo(
+		() =>[...new Set(clubs.map((club) => club.city))],
+		[]
+	);
+
+	const handleReset = useCallback(() => {
+		setClubName("");
+		setCity("");
+	}, []);
 
 	return (
 		<>
@@ -26,10 +34,7 @@ function App() {
 			<Filter
 				clubName={clubName}
 				onChangeName={setClubName}
-				onReset={() => {
-					setClubName("");
-					setCity("");
-				}}
+				onReset={handleReset}
 				cities={cities}
 				city={city}
 				onChangeCity={setCity}
