@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function List({ clubs }) {
 	console.log("List render");
 	return (
@@ -11,4 +13,4 @@ function List({ clubs }) {
 	);
 }
 
-export default List;
+export default memo(List);
